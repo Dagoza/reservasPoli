@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5 p-5 justify-content-center">
+  <form [formGroup]="form" (ngSubmit)="send()">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope"></i></span>
+      </div>
+      <input type="text" class="form-control" placeholder="Email" aria-label="email" formControlName="email">
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="emailSpan"><i class="fa fa-asterisk"></i></span>
+      </div>
+      <input type="password" class="form-control" placeholder="Password" aria-label="pass" formControlName="password">
+    </div>
+    <div class="row justify-content-center mb-4">
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Remember me</label>
+      </div>
+    </div>
+    <div class="alert alert-warning" *ngIf="mensaje!=''" role="alert">
+        {{mensaje}}
+      </div>
+    <div class="row justify-content-center">
+      <button type="submit" class="btn poli">Aceptar</button>
+    </div>
+  </form>
+  <div class="row justify-content-center">
+    <button class="btn-primary mt-2" (click)='signInGoogle()'><i class="fa fa-google"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      Sign up with google
+    </button>
+  </div>
+</div>
