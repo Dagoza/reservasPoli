@@ -18,12 +18,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ScenariosComponent } from './student/scenarios/scenarios.component';
-
+import { CarouselComponent } from './student/carousel/carousel.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { CalendarComponent } from './student/calendar/calendar.component';
 
 const ROUTES: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'Escenarios', component: ScenariosComponent },
+  { path: 'prueba', component: CarouselComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '*', redirectTo: 'login' }
 ];
@@ -33,12 +36,15 @@ const ROUTES: Routes = [
     LoginComponent,
     HomeComponent,
     NavbarComponent,
-    ScenariosComponent
+    ScenariosComponent,
+    CarouselComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
     BrowserModule,
     FormsModule,
+    NgbModule,
     SocialLoginModule,
     CalendarModule.forRoot({
       provide: DateAdapter,

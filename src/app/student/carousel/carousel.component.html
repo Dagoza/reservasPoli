@@ -1,0 +1,36 @@
+<ngb-carousel #carousel class="container carousel slide p-t-0 m-t-2 mt-4" (slide)="true" [interval]="1000000"
+    [showNavigationArrows]="false" [showNavigationIndicators]="false">
+    <ng-template class="m-t-0" ngbSlide *ngFor="let sections of carouselSections">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let card of sections.slide">
+                <div class="card" style="width: 18rem;height: 22rem;">
+                    <div class="card-img-top card-img-top-250">
+                        <img class="img-fluid" [src]="card.img" alt="Carousel 1">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{card.title}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{card.location}}</h6>
+                        <p class="card-text">{{card.description}}</p>
+                    </div>
+                    <div class="card-footer text-muted text-center">
+                        <a class="btn btn-primary text-white" (click)="selecter(card.id)"
+                            [ngClass]="{'disabled':selection==card.id}">
+                            <span *ngIf="selection==card.id">Seleccionado</span><span
+                                *ngIf="selection!=card.id">Seleccionar</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</ngb-carousel>
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-xs-12 text-md-right lead">
+            <a class="btn btn-outline-secondary prev" (click)="arrows(0)" title="go back"><i
+                    class="fa fa-lg fa-chevron-left"></i></a>
+            <a class="btn btn-outline-secondary next" (click)="arrows(1)" title="more"><i
+                    class="fa fa-lg fa-chevron-right"></i></a>
+        </div>
+    </div>
+</div>

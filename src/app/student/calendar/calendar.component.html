@@ -1,0 +1,46 @@
+<div class="container calendar">
+  <div class="row text-center">
+    <div class="col-md-4 mt-3">
+      <div class="btn-group">
+        <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+          (viewDateChange)="activeDayIsOpen = false">
+          <i class="fa fa-lg fa-chevron-left"></i>
+        </div>
+        <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+          Actual
+        </div>
+        <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+          (viewDateChange)="activeDayIsOpen = false">
+          <i class="fa fa-lg fa-chevron-right"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mt-3">
+      <h4> {{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h4>
+    </div>
+    <div class="col-md-4 mt-3">
+      <div class="btn-group">
+        <div class="btn btn-primary" (click)="view='month'" [ngClass]="{'active':view=='month'}">
+          Mes
+        </div>
+        <div class="btn btn-primary" (click)="view='week'" [ngClass]="{'active':view=='week'}">
+          Semana
+        </div>
+        <div class="btn btn-primary" (click)="view='day'" [ngClass]="{'active':view=='day'}">
+          Día
+        </div>
+      </div>
+    </div>
+  </div>
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+      (dayClicked)="viewDate = $event.day.date; view = 'day'">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+      (dayHeaderClicked)="viewDate = $event.day.date; view = 'day'" [dayStartHour]="6" [dayEndHour]="22">
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events" [dayStartHour]="6"
+      [refresh]="refresh" [dayEndHour]="22" (hourSegmentClicked)="hourSegmentClicked($event.date)">
+    </mwl-calendar-day-view>
+  </div>
+</div>

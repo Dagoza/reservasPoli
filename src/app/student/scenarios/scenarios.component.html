@@ -1,7 +1,9 @@
 <app-navbar></app-navbar>
 
-<div class="container">
-  <mwl-calendar-month-view [viewDate]="viewDate" [events]="events" [refresh]="refresh"
-    [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)" style="font-weight: bold;">
-  </mwl-calendar-month-view>
+<app-carousel [cards]="cards" (selectionChange)='selection($event)'></app-carousel>
+
+<app-calendar *ngIf="selected!=0" [events]="events" (bookingChange)="booking($event)"></app-calendar>
+
+<div class="text-center mt-5">
+  <button type="button" class="btn btn-primary btn-lg" [disabled]="disable">Enviar</button>
 </div>
