@@ -34,17 +34,27 @@ export class LoginComponent implements OnInit {
   }
 
   send() {
-    // if (!this.form.valid) {
-    //   this.mensaje = 'Datos inválidos.';
-    // } else {
-    //   const datos = this.Datos.users.filter(x => x.user === this.form.value.email && x.pass === this.form.value.password);
-    //   if (datos.length === 0) {
-    //     this.mensaje = 'Datos incorrectos.';
-    //   } else {
-    //     this.Datos.currentUser = datos[0];
-    //     (datos[0].rol === 'Student') ? this.router.navigate(['/student']) : this.router.navigate(['/admin']);
-    //   }
-    // }
+    if (!this.form.valid) {
+      this.mensaje = 'Datos inválidos.';
+    } else {
+      console.log(this.form.value);
+      this.Data.postLogin(this.form.value).subscribe(
+        (Response: any) => {
+          console.log(Response);
+          if (Response.status === 'success') {
+            localStorage.setItem('token', Response.message);
+            this.Data.login = true;
+            this.Data.user = 'student';
+            this.Data.datos = {name: 'Prueba'};
+            this.router.navigate(['/home']);
+          } else {
+            this.mensaje = 'Usuario o contraseña incorrecto.';
+          }
+        }, (error: any) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   public signInGoogle() {
@@ -53,6 +63,7 @@ export class LoginComponent implements OnInit {
       .then((userData) => {
         this.Data.datos = userData;
         this.Data.login = true;
+        this.Data.user = 'student';
         // post backend
         this.router.navigate(['/home']);
         //on success

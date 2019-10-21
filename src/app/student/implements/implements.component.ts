@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
 import { CalendarEvent } from 'angular-calendar';
 import { DayViewHour } from 'calendar-utils';
 import { addDays, addHours, startOfDay } from 'date-fns';
@@ -18,34 +17,32 @@ const colors: any = {
     secondary: '#FDF1BA'
   }
 };
-
 @Component({
-  selector: 'app-scenarios',
-  templateUrl: './scenarios.component.html',
-  styleUrls: ['./scenarios.component.css']
+  selector: 'app-implements',
+  templateUrl: './implements.component.html',
+  styleUrls: ['./implements.component.css']
 })
-export class ScenariosComponent implements OnInit {
+export class ImplementsComponent implements OnInit {
 
   cards = [{
     id: 1,
     img: 'https://www.las2orillas.co/wp-content/uploads/2019/06/cancha.png',
-    title: 'Cancha de noche',
-    location: 'P40',
-    description: 'Cancha de futbol con buena iluminación',
-    medidas: ''
+    title: 'Balon basquet',
+    location: 'Disponible: 10',
+    description: 'Cancha de futbol con buena iluminación'
   },
   {
     id: 2,
     img: 'https://proyectostipo.dnp.gov.co/media/k2/items/cache/5fa21cd9e0d2531a2f1dfdffbab46f70_XL.jpg',
     title: 'Cancha pequeña',
-    location: 'Piscina',
+    location: 'Disponible: 5',
     description: 'Cancha de futbol en mallas'
   },
   {
     id: 3,
     img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbii_5oeX9bFE26ZkmDg1Au9isqbEl_tClft-KXZL7sMX8KidG7A',
     title: 'Cancha de Tennis',
-    location: 'Coliseo',
+    location: 'Disponible: 4',
     description: 'Cancha de Tennis '
   },
   {
@@ -118,12 +115,14 @@ export class ScenariosComponent implements OnInit {
     // get cartas
   }
 
+
   selection(id) {
     if (this.aux === 1) {
       this.events = this.events2;
     }
     this.selected = id;
     this.aux++;
+     // get cantidad disponible
     // get eventos para el calendario
   }
 
@@ -134,5 +133,4 @@ export class ScenariosComponent implements OnInit {
       this.disable = false;
     }
   }
-
 }

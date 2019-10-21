@@ -21,12 +21,18 @@ import { ScenariosComponent } from './student/scenarios/scenarios.component';
 import { CarouselComponent } from './student/carousel/carousel.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CalendarComponent } from './student/calendar/calendar.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { ImplementsComponent } from './student/implements/implements.component';
+import { BookingListComponent } from './admin/booking-list/booking-list.component';
 
 const ROUTES: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'Escenarios', component: ScenariosComponent },
   { path: 'prueba', component: CarouselComponent },
+  { path: 'registro', component: SignInComponent },
+  { path: 'implementos', component: ImplementsComponent },
+  { path: 'reservas', component: BookingListComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '*', redirectTo: 'login' }
 ];
@@ -38,7 +44,10 @@ const ROUTES: Routes = [
     NavbarComponent,
     ScenariosComponent,
     CarouselComponent,
-    CalendarComponent
+    CalendarComponent,
+    SignInComponent,
+    ImplementsComponent,
+    BookingListComponent
   ],
   imports: [
     BrowserModule,

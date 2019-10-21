@@ -14,22 +14,19 @@
       </div>
       <input type="password" class="form-control" placeholder="Password" aria-label="pass" formControlName="password">
     </div>
-    <div class="row justify-content-center mb-4">
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Remember me</label>
-      </div>
-    </div>
     <div class="alert alert-warning" *ngIf="mensaje!=''" role="alert">
-        {{mensaje}}
-      </div>
+      {{mensaje}}
+    </div>
     <div class="row justify-content-center">
-      <button type="submit" class="btn poli">Aceptar</button>
+      <button type="submit" class="btn poli" (click)='send()'>Aceptar</button>
     </div>
   </form>
   <div class="row justify-content-center">
     <button class="btn-primary mt-2" (click)='signInGoogle()'><i class="fa fa-google"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       Sign up with google
     </button>
+  </div>
+  <div class="row justify-content-center">
+    <a [routerLink]="['/registro']">Registrarse</a>
   </div>
 </div>

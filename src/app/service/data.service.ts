@@ -1,11 +1,39 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
   datos: any;
+  user: string;
   login = false;
-  constructor() { }
+  constructor(private http: HttpClient) {
+  }
+
+  postLogin(login): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    const body = new HttpParams()
+    .set('json', JSON.stringify({email: login.email, password: login.password}));
+    return this.http.post(`http://192.168.0.6:8888/Salires/api-rest-laravel/public/api/login`, body);
+  }
+
+  postValidation(body): Observable<any> {
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      localStorage.getItem('token')
+    );
+    headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.post(`http://192.168.0.6:8888/Salires/api-rest-laravel/public/api/user/update`, body);
+  }
+
+  postSignin(signup): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    const body = new HttpParams()
+    .set('json', JSON.stringify({name: signup.nombre, surname: signup.apellido,
+      email: signup.correo, password: signup.password, user_type: signup.userType}));
+    return this.http.post(`http://192.168.0.6:8888/Salires/api-rest-laravel/public/api/register`, body);
+  }
+
 }
