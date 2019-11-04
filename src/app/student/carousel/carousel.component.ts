@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
-
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
@@ -19,11 +19,12 @@ export class CarouselComponent implements OnInit {
 
   selection: number;
 
-  constructor() {
+  constructor(private sanitizer: DomSanitizer) {
 
   }
 
   ngOnInit() {
+    console.log(this.cards);
     const aux = { cont: 0, section: [] };
     this.cards.forEach((element) => {
       aux.section.push(element);
@@ -50,6 +51,10 @@ export class CarouselComponent implements OnInit {
 
   arrows(i) {
     i === 0 ? this.Carousel.prev() : this.Carousel.next();
+  }
+
+  photoURL(imagen) {
+    return this.sanitizer.bypassSecurityTrustUrl(imagen);
   }
 
   selecter(id) {

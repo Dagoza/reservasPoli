@@ -3,14 +3,37 @@
     <ng-template class="m-t-0" ngbSlide *ngFor="let sections of carouselSections">
         <div class="row">
             <div class="col-md-4" *ngFor="let card of sections.slide">
-                <div class="card" style="width: 18rem;height: 22rem;">
+                <div class="card" style="width: 18rem;height: 30rem;">
                     <div class="card-img-top card-img-top-250">
-                        <img class="img-fluid" [src]="card.img" alt="Carousel 1">
+                        <img class="img-fluid" [src]="photoURL(card.imagen)" alt="Carousel 1">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{card.title}}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{card.location}}</h6>
-                        <p class="card-text">{{card.description}}</p>
+                        <h5 class="card-title">{{card.nombre}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{card.codigo}}</h6>
+                        <div class="accordion" id="accordionCard{{card.id}}">
+                            <p>
+                                <a class="btn btn-primary" data-toggle="collapse" href="#collapseMedidas{{card.id}}"
+                                    role="button" aria-expanded="false"
+                                    [attr.aria-controls]="'collapseMedidas'+card.id">
+                                    Medidas
+                                </a>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                    [attr.data-target]="'#collapseDescripcion'+card.id" aria-expanded="false"
+                                    [attr.aria-controls]="'collapseDescripcion'+card.id">
+                                    Descripción
+                                </button>
+                            </p>
+                            <div class="collapse" id="collapseMedidas{{card.id}}" [attr.data-parent]="'#accordionCard'+card.id">
+                                <div class="card card-body">
+                                    {{card.medidas}}
+                                </div>
+                            </div>
+                            <div class="collapse" id="collapseDescripcion{{card.id}}" [attr.data-parent]="'#accordionCard'+card.id">
+                                <div class="card card-body">
+                                    {{card.descripcion}}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-footer text-muted text-center">
                         <a class="btn btn-primary text-white" (click)="selecter(card.id)"

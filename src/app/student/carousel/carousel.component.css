@@ -25,10 +25,14 @@
 
 /* control image height */
 .card-img-top-250 {
-  max-height: 250px;
+  max-height: 200px;
   overflow: hidden;
 }
 
 .btn {
   cursor: pointer;
+}
+
+.card-body{
+  overflow: auto;
 }

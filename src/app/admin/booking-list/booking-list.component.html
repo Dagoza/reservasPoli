@@ -19,15 +19,19 @@
             </thead>
             <tbody>
                 <tr *ngFor="let solicitud of solicitudes">
-                    <td scope="col" *ngIf="solicitud.Estado == 'Pendiente'">{{solicitud.IDSolicitud}}</td>
-                    <td scope="col" *ngIf="solicitud.Estado == 'Pendiente'">{{solicitud.escenario}}</td>
-                    <td scope="col" *ngIf="solicitud.Estado == 'Pendiente'">{{solicitud.reserva}}</td>
-                    <td scope="col" *ngIf="solicitud.Estado == 'Pendiente'">{{solicitud.usuario}}</td>
-                    <td scope="col" *ngIf="solicitud.Estado == 'Pendiente'">
-                        <i class="fa fa-lg fa-check" style="cursor: pointer;color:green"></i>
+                    <td scope="col">{{solicitud.id}}</td>
+                    <td scope="col">{{solicitud.nombre}}</td>
+                    <td scope="col">{{solicitud.fecha_inicial}} - {{solicitud.fecha_final}}</td>
+                    <td scope="col">{{solicitud.name}}</td>
+                    <td scope="col" class="text-center">
+                        <a (click)="estadoSolicitud(solicitud.id,'aprobado')">
+                            <i class="fa fa-lg fa-check" style="cursor: pointer;color:green"></i>
+                        </a>
                     </td>
-                    <td scope="col" *ngIf="solicitud.Estado == 'Pendiente'">
-                        <i class="fa fa-lg fa-times" style="cursor: pointer;color:red"></i>
+                    <td scope="col" class="text-center">
+                        <a (click)="estadoSolicitud(solicitud.id, 'rechazado')">
+                            <i class="fa fa-lg fa-times" style="cursor: pointer;color:red"></i>
+                        </a>
                     </td>
                 </tr>
             </tbody>
