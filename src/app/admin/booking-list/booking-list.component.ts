@@ -25,6 +25,14 @@ export class BookingListComponent implements OnInit {
   }
 
   estadoSolicitud(id, estado) {
+    this._data.updateEstadoReserva({id: id + '', estado : estado}).subscribe(
+      (Response: any) => {
+        console.log(Response);
+        this.ngOnInit();
+      }, (error: any) => {
+        console.log(error);
+      }
+    );
 
   }
 

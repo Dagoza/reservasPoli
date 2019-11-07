@@ -5,5 +5,8 @@
 <app-calendar *ngIf="selected!=0" [events]="events" (bookingChange)="booking($event)"></app-calendar>
 
 <div class="text-center mt-5">
+    <div *ngIf='ok' class="alert alert-success" role="alert">
+      La reserva se ha creado correctamente.
+    </div>
   <button type="button" (click)="send()" class="btn btn-primary btn-lg" [disabled]="disable">Enviar</button>
 </div>

@@ -28,48 +28,11 @@ const colors: any = {
 export class ScenariosComponent implements OnInit {
 
   cards = [];
-  // [{
-  //   id: 1,
-  //   img: 'https://www.las2orillas.co/wp-content/uploads/2019/06/cancha.png',
-  //   title: 'Cancha de noche',
-  //   location: 'P40',
-  //   description: 'Cancha de futbol con buena iluminación',
-  //   medidas: ''
-  // },
-  // {
-  //   id: 2,
-  //   img: 'https://proyectostipo.dnp.gov.co/media/k2/items/cache/5fa21cd9e0d2531a2f1dfdffbab46f70_XL.jpg',
-  //   title: 'Cancha pequeña',
-  //   location: 'Piscina',
-  //   description: 'Cancha de futbol en mallas'
-  // },
-  // {
-  //   id: 3,
-  //   img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbii_5oeX9bFE26ZkmDg1Au9isqbEl_tClft-KXZL7sMX8KidG7A',
-  //   title: 'Cancha de Tennis',
-  //   location: 'Coliseo',
-  //   description: 'Cancha de Tennis '
-  // },
-  // {
-  //   id: 4,
-  //   img: 'https://primertiempo.co/wp-content/uploads/2019/04/Coliseo-Bernardo-Caraballo.jpg',
-  //   title: 'Cancha de Bascket',
-  //   location: 'Coliseo',
-  //   description: 'Cancha de bascketball dentro de coliseo cubierto'
-  // },
-  // {
-  //   id: 5,
-  //   img: 'https://versacourtinternational.com.mx/cmss_files/photogallery/structure/image39007.jpg',
-  //   title: 'Cancha de Voleiball',
-  //   location: 'P36',
-  //   description: 'Cancha de voleibol en cemento con malla'
-  // }
-  // ];
 
   reserva: any;
 
   events: CalendarEvent[] = [];
-
+  ok = false;
   selected = 0;
   aux = 0;
   disable = true;
@@ -88,7 +51,9 @@ export class ScenariosComponent implements OnInit {
   }
 
   selection(id) {
-    this.selected = id;
+    this.events = [];
+    this.ok = false;
+    this.selected = 0;
     this.aux++;
     this._data.getReserva(id).subscribe(
       (Response: any) => {
@@ -98,9 +63,10 @@ export class ScenariosComponent implements OnInit {
             start: new Date(element.fecha_inicial),
             end: new Date(element.fecha_final),
             title: 'Reservado',
-            color: colors.red
+            color: element.estado === 'pendiente' ? colors.yellow : colors.red
           });
         });
+        this.selected = id;
       }, (error: any) => {
         console.log(error);
       }
@@ -108,6 +74,7 @@ export class ScenariosComponent implements OnInit {
   }
 
   booking(reserva) {
+    this.ok = false;
     this.reserva = reserva;
     if (this.selected !== 0 && this.reserva) {
       this.disable = false;
@@ -129,6 +96,7 @@ export class ScenariosComponent implements OnInit {
     this._data.postReserva(json).subscribe(
       (Response: any) => {
         console.log(Response);
+        this.ok = true;
       }, (error: any) => {
         console.log(error);
       }

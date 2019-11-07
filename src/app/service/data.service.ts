@@ -10,7 +10,7 @@ export class DataService {
   user: string = 'admin';
   idUser = 9;
   login = false;
-  url = 'http://192.168.1.58:8888';
+  url = 'http://192.168.0.10:8888';
   constructor(private http: HttpClient) {
   }
 
@@ -60,6 +60,14 @@ export class DataService {
   getBooking(estado): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.get(`${this.url}/Salires/api-rest-laravel/public/api/reserva/pendientes/${estado}`);
+  }
+
+  updateEstadoReserva(estado): Observable<any> {
+    console.log(estado);
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    const body = new HttpParams()
+    .set('json', JSON.stringify(estado));
+    return this.http.post(`${this.url}/Salires/api-rest-laravel/public/api/reserva/actualizar`, body);
   }
 
 }
