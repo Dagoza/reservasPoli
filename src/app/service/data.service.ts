@@ -63,11 +63,24 @@ export class DataService {
   }
 
   updateEstadoReserva(estado): Observable<any> {
-    console.log(estado);
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     const body = new HttpParams()
     .set('json', JSON.stringify(estado));
     return this.http.post(`${this.url}/Salires/api-rest-laravel/public/api/reserva/actualizar`, body);
+  }
+
+  sendMail(estado): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    const body = new HttpParams()
+    .set('json', JSON.stringify(estado));
+    return this.http.post(`${this.url}/Salires/api-rest-laravel/public/api/reserva/correo`, body);
+  }
+
+  pendientesHoy(fechas): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    const body = new HttpParams()
+    .set('json', JSON.stringify(fechas));
+    return this.http.post(`${this.url}/Salires/api-rest-laravel/public/api/reserva/pendientesHoy`, body);
   }
 
 }

@@ -77,7 +77,7 @@ export class CalendarComponent implements OnInit {
         this.mensaje = 'La fecha inicial ya ha pasado.';
       } else {
         this.events.forEach(element => {
-          if (startDate < element.end && startDate > element.start) {
+          if (startDate <= element.end && startDate >= element.start) {
             this.mensaje = 'La fecha ya está reservada.';
           }
         });
@@ -100,7 +100,7 @@ export class CalendarComponent implements OnInit {
         this.mensaje = 'La fecha inicial es mayor a la fecha final.';
       } else {
         this.events.forEach(element => {
-          if (endDate < element.end && endDate > element.start) {
+          if (endDate <= element.end && endDate >= element.start) {
             this.mensaje = 'La fecha ya está reservada.';
           }
         });

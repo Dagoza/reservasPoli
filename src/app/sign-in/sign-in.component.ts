@@ -41,26 +41,31 @@ export class SignInComponent implements OnInit {
   }
 
   send() {
-    this._data.postSignin(this.form.value).subscribe(
-      (Response: any) => {
-        this._data.postLogin({ email: this.form.value.correo, password: this.form.value.password }).subscribe(
-          (response: any) => {
-            if (response.status === 'success') {
-              localStorage.setItem('token', Response.message);
-              this._data.login = true;
-              this.router.navigate(['/home']);
+    if ((this.form.value.userType === 'Alumno' || this.form.value.userType === 'Profesor')
+    && !this.form.value.nombre.include('@elpoli.edu.co')) {
+      this.mensaje = 'El correo no pertenece al Politécnico Colombiano Jaime Isaza Cadavid.';
+    } else {
+      this._data.postSignin(this.form.value).subscribe(
+        (Response: any) => {
+          this._data.postLogin({ email: this.form.value.correo, password: this.form.value.password }).subscribe(
+            (response: any) => {
+              if (response.status === 'success') {
+                localStorage.setItem('token', Response.message);
+                this._data.login = true;
+                this.router.navigate(['/home']);
+              }
+            }, (error: any) => {
+              console.log(error);
             }
-          }, (error: any) => {
-            console.log(error);
+          );
+        }, (error: any) => {
+          console.log(error);
+          if (error.error.errors[0] === 'The email has already been taken.') {
+            this.mensaje = 'El email ya existe en la base de datos.';
           }
-        );
-      }, (error: any) => {
-        console.log(error);
-        if (error.error.errors[0] === 'The email has already been taken.') {
-          this.mensaje = 'El email ya existe en la base de datos.';
         }
-      }
-    );
+      );
+    }
   }
 
 }

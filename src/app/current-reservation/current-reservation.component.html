@@ -1,0 +1,24 @@
+<app-navbar></app-navbar>
+
+<div class="row table-responsive">
+    <div class="col-md-12">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Solicitud</th>
+                    <th scope="col">Escenario</th>
+                    <th scope="col">Código</th>
+                    <th scope="col">Reserva</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let solicitud of solicitudes">
+                    <td scope="col">{{solicitud.id}}</td>
+                    <td scope="col">{{solicitud.nombre}}</td>
+                    <td scope="col">{{solicitud.codigo}}</td>
+                    <td scope="col">{{solicitud.fecha_inicial}} - {{solicitud.fecha_final}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
