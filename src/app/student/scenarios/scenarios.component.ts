@@ -84,13 +84,12 @@ export class ScenariosComponent implements OnInit {
   send() {
     let json = '[';
     this.reserva = JSON.parse(this.reserva);
+    console.log(this.reserva);
     this.reserva.forEach(element => {
       json += `{"id_users": "${this._data.idUser}", "id_escenarios": "${this.selected}",
       "fecha_inicial": "${element.start}", "fecha_final": "${element.end}", "estado": "pendiente"},`;
     });
     json = json.slice(0, -1);
-    json = json.replace(/T/g, ' ');
-    json = json.replace(/.000Z/g, '');
     json += ']';
     console.log(json);
     this._data.postReserva(json).subscribe(

@@ -25,6 +25,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { ImplementsComponent } from './student/implements/implements.component';
 import { BookingListComponent } from './admin/booking-list/booking-list.component';
 import { CurrentReservationComponent } from './current-reservation/current-reservation.component';
+import { LoanListComponent } from './admin/loan-list/loan-list.component';
 
 const ROUTES: Routes = [
   { path: 'login', component: LoginComponent },
@@ -34,6 +35,7 @@ const ROUTES: Routes = [
   { path: 'registro', component: SignInComponent },
   { path: 'implementos', component: ImplementsComponent },
   { path: 'reservas', component: BookingListComponent },
+  { path: 'prestamos', component: LoanListComponent },
   { path: 'Actuales', component: CurrentReservationComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '*', redirectTo: 'login' }
@@ -50,7 +52,8 @@ const ROUTES: Routes = [
     SignInComponent,
     ImplementsComponent,
     BookingListComponent,
-    CurrentReservationComponent
+    CurrentReservationComponent,
+    LoanListComponent
   ],
   imports: [
     BrowserModule,

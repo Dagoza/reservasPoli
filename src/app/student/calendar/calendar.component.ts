@@ -30,6 +30,12 @@ export class CalendarComponent implements OnInit {
 
   @Input() events: CalendarEvent[];
 
+  @Input() tipoPrestamo: String;
+
+  @Input() cantidad;
+
+  @Input() cantidadTotal;
+
   @Output() bookingChange = new EventEmitter();
 
   activeDayIsOpen: boolean;
@@ -67,6 +73,15 @@ export class CalendarComponent implements OnInit {
   }
 
   hourSegmentClicked(date: Date) {
+    if (this.tipoPrestamo === 'Implements') {
+      this.implementos(date);
+    } else {
+      this.escenarios(date);
+    }
+    this.refresh.next();
+  }
+
+  escenarios(date) {
     this.selectedDayViewDate = date;
     const startDate = date;
     const endDate = date;
@@ -111,7 +126,10 @@ export class CalendarComponent implements OnInit {
           const reservas = [];
           this.events.forEach(element => {
             if (element.color === colors.blue) {
-              reservas.push({ start: element.start, end: element.end });
+              reservas.push({
+                start: `${element.start.getFullYear()}-${element.start.getMonth() + 1}-${element.start.getDate()} ${element.start.getHours()}:${element.start.getMinutes()}:${element.start.getSeconds()}`,
+                end: `${element.end.getFullYear()}-${element.end.getMonth() + 1}-${element.end.getDate()} ${element.end.getHours()}:${element.end.getMinutes()}:${element.end.getSeconds()}`
+              });
             }
           });
           this.bookingChange.emit(JSON.stringify(reservas));
@@ -119,8 +137,73 @@ export class CalendarComponent implements OnInit {
         }
       }
     }
-    this.refresh.next();
   }
 
+  implementos(date) {
+    this.selectedDayViewDate = date;
+    const startDate = date;
+    const endDate = date;
+    this.mensaje = '';
+    const hoy = new Date();
+    if (this.cont === 0) {
+      if (startDate < hoy) {
+        this.mensaje = 'La fecha inicial ya ha pasado.';
+      } else {
+        const contador = { cont: 0 };
+        this.events.forEach(element => {
+          if (startDate <= element.end && startDate >= element.start) {
+            contador.cont++;
+          }
+        });
+        if (this.cantidad > (this.cantidadTotal - contador.cont)) {
+          this.mensaje = 'La cantidad requerida ya está reservada para esta fecha.';
+        } else {
+          if (this.mensaje === '') {
+            this.events.push({
+              start: startDate,
+              end: startDate,
+              title: 'Reserva desde: \n' + startDate.toLocaleDateString('es', options),
+              color: colors.blue,
+              actions: this.actionDelete
+            });
+            this.cont++;
+          }
+        }
+      }
+    } else if (this.cont === 1) {
+      endDate.setMinutes(date.getMinutes() + 30);
+      if (this.events[this.events.length - 1].start === endDate) {
+        this.mensaje = 'Las fechas no pueden ser iguales.';
+      } else if (this.events[this.events.length - 1].start > endDate) {
+        this.mensaje = 'La fecha inicial es mayor a la fecha final.';
+      } else {
+        const contador = { cont: 0 };
+        this.events.forEach(element => {
+          if (endDate <= element.end && endDate >= element.start) {
+            contador.cont++;
+          }
+        });
+        if (this.cantidad > (this.cantidadTotal - contador.cont)) {
+          this.mensaje = 'La cantidad requerida ya está reservada para esta fecha.';
+        } else {
+          if (this.mensaje === '') {
+            this.events[this.events.length - 1].title += ' hasta ' + endDate.toLocaleDateString('es', options);
+            this.events[this.events.length - 1].end = endDate;
+            const reservas = [];
+            this.events.forEach(element => {
+              if (element.color === colors.blue) {
+                reservas.push({
+                  start: `${element.start.getFullYear()}-${element.start.getMonth() + 1}-${element.start.getDate()} ${element.start.getHours()}:${element.start.getMinutes()}:${element.start.getSeconds()}`,
+                  end: `${element.end.getFullYear()}-${element.end.getMonth() + 1}-${element.end.getDate()} ${element.end.getHours()}:${element.end.getMinutes()}:${element.end.getSeconds()}`
+                });
+              }
+            });
+            this.bookingChange.emit(JSON.stringify(reservas));
+            this.cont = 0;
+          }
+        }
+      }
+    }
+  }
 
 }

@@ -10,7 +10,7 @@ export class DataService {
   user: string = 'admin';
   idUser = 9;
   login = false;
-  url = 'http://192.168.0.10:8888';
+  url = 'http://192.168.0.5:8888';
   constructor(private http: HttpClient) {
   }
 
@@ -62,11 +62,30 @@ export class DataService {
     return this.http.get(`${this.url}/Salires/api-rest-laravel/public/api/reserva/pendientes/${estado}`);
   }
 
+  getPrestamos(): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.get(`${this.url}/Salires/api-rest-laravel/public/api/prestamo/pendientes`);
+  }
+
   updateEstadoReserva(estado): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     const body = new HttpParams()
     .set('json', JSON.stringify(estado));
     return this.http.post(`${this.url}/Salires/api-rest-laravel/public/api/reserva/actualizar`, body);
+  }
+
+  updateEstadoPrestamo(estado): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    const body = new HttpParams()
+    .set('json', JSON.stringify(estado));
+    return this.http.post(`${this.url}/Salires/api-rest-laravel/public/api/prestamo/actualizar`, body);
+  }
+
+  sendMailPrestamo(estado): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    const body = new HttpParams()
+    .set('json', JSON.stringify(estado));
+    return this.http.post(`${this.url}/Salires/api-rest-laravel/public/api/prestamo/correo`, body);
   }
 
   sendMail(estado): Observable<any> {
@@ -81,6 +100,25 @@ export class DataService {
     const body = new HttpParams()
     .set('json', JSON.stringify(fechas));
     return this.http.post(`${this.url}/Salires/api-rest-laravel/public/api/reserva/pendientesHoy`, body);
+  }
+
+  getImplements(): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    const body = new HttpParams();
+    return this.http.get(`${this.url}/Salires/api-rest-laravel/public/api/implementos`);
+  }
+
+  getBookingImplements(seleccion): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    const body = new HttpParams();
+    return this.http.get(`${this.url}/Salires/api-rest-laravel/public/api/implementos/seleccion/${seleccion}`);
+  }
+
+  postPrestamo(prestamo): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    const body = new HttpParams()
+    .set('json', prestamo);
+    return this.http.post(`${this.url}/Salires/api-rest-laravel/public/api/prestamo/crear`, body);
   }
 
 }

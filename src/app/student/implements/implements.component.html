@@ -1,13 +1,42 @@
 <app-navbar></app-navbar>
 
-<app-carousel [cards]="cards" (selectionChange)='selection($event)'></app-carousel>
-<div class="text-center mt-5">
-    <input type="number" name="quantity" min="1" max="10">
+<div class="container mt-5">
+  <div class="form-group">
+    <label for="Implementos">Implementos</label>
+    <select multiple class="form-control" id="Implementos">
+      <option *ngFor='let implemento of implementos' (click)="selection(implemento.id ,implemento.descripcion, implemento.cantidad, implemento.valor)"
+        [value]="implemento.descripcion">{{implemento.descripcion}}</option>
+    </select>
+  </div>
+
+  <div class="form-group row" *ngIf="cantidadTotal!=0">
+    <label for="so" class="col-4 col-form-label">Cantidad total: </label>
+    <label class="col-4 mt-1">{{cantidadTotal}}</label>
+  </div>
+
+  <label class="form-group row" *ngIf="valor!=0">
+    <label for="so" class="col-4 col-form-label">Valor por pérdida: </label>
+    <label class="col-4 mt-1">{{valor}}</label>
+  </label>
+
+  <div class="form-group row" *ngIf="valor!=0">
+    <label for="cantidad" class="col-sm-2 col-form-label">Cantidad requerida: </label>
+    <div class="col-sm-2">
+      <input type="number" [(ngModel)]="cantidad" (change)="validacionCantidad()" class="form-control" id="cantidad" placeholder="Numerico">
+    </div>
+  </div>
+
+  <div *ngIf='validacion' class="alert alert-danger" role="alert">
+    Cantidad máxima alcanzada
+  </div>
+
 </div>
 
-
-<app-calendar *ngIf="selected!=0" [events]="events" (bookingChange)="booking($event)"></app-calendar>
+<app-calendar *ngIf="selected!=0 && ok" tipoPrestamo="Implements" [cantidad]="cantidad" [cantidadTotal]="cantidadTotal" [events]="events" (bookingChange)="booking($event)"></app-calendar>
 
 <div class="text-center mt-5">
-  <button type="button" class="btn btn-primary btn-lg" [disabled]="disable">Enviar</button>
+    <div *ngIf='okay' class="alert alert-success" role="alert">
+        Los préstamos se han creado correctamente.
+      </div>
+  <button type="button" (click)="send()" class="btn btn-primary btn-lg" [disabled]="disable">Enviar</button>
 </div>

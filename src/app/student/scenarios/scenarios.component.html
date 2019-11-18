@@ -2,7 +2,7 @@
 
 <app-carousel *ngIf="cards.length!=0" [cards]="cards" (selectionChange)='selection($event)'></app-carousel>
 
-<app-calendar *ngIf="selected!=0" [events]="events" (bookingChange)="booking($event)"></app-calendar>
+<app-calendar *ngIf="selected!=0" tipoPrestamo="Scenario" [events]="events" (bookingChange)="booking($event)"></app-calendar>
 
 <div class="text-center mt-5">
     <div *ngIf='ok' class="alert alert-success" role="alert">
