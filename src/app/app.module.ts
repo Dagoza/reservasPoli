@@ -26,6 +26,7 @@ import { ImplementsComponent } from './student/implements/implements.component';
 import { BookingListComponent } from './admin/booking-list/booking-list.component';
 import { CurrentReservationComponent } from './current-reservation/current-reservation.component';
 import { LoanListComponent } from './admin/loan-list/loan-list.component';
+import { LoadingComponent } from './loading/loading.component';
 
 const ROUTES: Routes = [
   { path: 'login', component: LoginComponent },
@@ -53,7 +54,8 @@ const ROUTES: Routes = [
     ImplementsComponent,
     BookingListComponent,
     CurrentReservationComponent,
-    LoanListComponent
+    LoanListComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

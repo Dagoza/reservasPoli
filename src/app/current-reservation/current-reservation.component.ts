@@ -9,11 +9,13 @@ import { DataService } from '../service/data.service';
 export class CurrentReservationComponent implements OnInit {
 
   solicitudes: any;
+  loading = false;
 
   constructor(private _data: DataService) { }
 
 
   ngOnInit() {
+    this.loading = true;
     const today = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()} 00:00:00`;
     const tomorrow = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()} 23:59:59`;
     console.log(today);
@@ -21,6 +23,7 @@ export class CurrentReservationComponent implements OnInit {
       (Response: any) => {
         console.log(Response);
         this.solicitudes = Response.reserva;
+        this.loading = false;
         console.log(this.solicitudes);
       }, (error: any) => {
         console.log(error);

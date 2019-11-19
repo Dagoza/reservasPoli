@@ -36,15 +36,18 @@ export class ImplementsComponent implements OnInit {
   okay = false;
   aux = 0;
   disable = true;
+  loading = false;
   events: CalendarEvent[] = [];
 
   constructor(public _data: DataService) { }
 
   ngOnInit() {
+    this.loading = true;
     this._data.getImplements().subscribe(
       (Response: any) => {
         console.log(Response);
         this.implementos = Response.implementos;
+        this.loading = false;
       }, (error: any) => {
         console.log(error);
       }
@@ -53,6 +56,7 @@ export class ImplementsComponent implements OnInit {
 
 
   selection(id, descripcion, cantidad, valor) {
+    this.loading = true;
     this.cantidadTotal = cantidad;
     this.valor = valor;
     this.selected = 0;
@@ -68,6 +72,7 @@ export class ImplementsComponent implements OnInit {
             title: 'Prestado',
             color: element.estado === 'pendiente' ? colors.yellow : colors.red
           });
+          this.loading = false;
         });
         this.selected = id;
       }, (error: any) => {
@@ -94,6 +99,7 @@ export class ImplementsComponent implements OnInit {
   }
 
   send() {
+    this.loading = true;
     let json = '[';
     this.prestamo = JSON.parse(this.prestamo);
     this.prestamo.forEach(element => {
@@ -109,6 +115,7 @@ export class ImplementsComponent implements OnInit {
       (Response: any) => {
         console.log(Response);
         this.okay = true;
+        this.loading = false;
       }, (error: any) => {
         console.log(error);
       }

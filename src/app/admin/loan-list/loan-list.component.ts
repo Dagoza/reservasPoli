@@ -9,14 +9,17 @@ import { DataService } from 'src/app/service/data.service';
 export class LoanListComponent implements OnInit {
 
   solicitudes: any;
+  loading = false;
 
   constructor(private _data: DataService) { }
 
   ngOnInit() {
+    this.loading = true;
     this._data.getPrestamos().subscribe(
       (Response: any) => {
         console.log(Response);
         this.solicitudes = Response.implementos;
+        this.loading = false;
         console.log(this.solicitudes);
       }, (error: any) => {
         console.log(error);
@@ -25,6 +28,7 @@ export class LoanListComponent implements OnInit {
   }
 
   estadoSolicitud(id, estado) {
+    this.loading = true;
     this._data.updateEstadoPrestamo({id: id + '', estado : estado}).subscribe(
       (Response: any) => {
         this._data.sendMailPrestamo({id: id + '', estado : estado}).subscribe(

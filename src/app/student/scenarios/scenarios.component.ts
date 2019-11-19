@@ -36,14 +36,17 @@ export class ScenariosComponent implements OnInit {
   selected = 0;
   aux = 0;
   disable = true;
+  loading = false;
 
   constructor(public _data: DataService) { }
 
   ngOnInit() {
+    this.loading = true;
     this._data.getScenarios().subscribe(
       (Response: any) => {
         console.log(Response);
         this.cards = Response.escenarios;
+        this.loading = false;
       }, (error: any) => {
         console.log(error);
       }
@@ -55,6 +58,7 @@ export class ScenariosComponent implements OnInit {
     this.ok = false;
     this.selected = 0;
     this.aux++;
+    this.loading = true;
     this._data.getReserva(id).subscribe(
       (Response: any) => {
         console.log(Response);
@@ -66,6 +70,7 @@ export class ScenariosComponent implements OnInit {
             color: element.estado === 'pendiente' ? colors.yellow : colors.red
           });
         });
+        this.loading = false;
         this.selected = id;
       }, (error: any) => {
         console.log(error);

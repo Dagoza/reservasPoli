@@ -5,7 +5,7 @@
   <img class="logo" src="assets/img/logo.png" alt="">
 </nav>
 
-<nav *ngIf="_data.user!='admin'" class="navbar navbar-expand-lg navbar navbar-dark" style="background-color: #2a4723;">
+<nav *ngIf="_data.user!='admin' && _data.user!=''" class="navbar navbar-expand-lg navbar navbar-dark" style="background-color: #2a4723;">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

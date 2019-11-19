@@ -6,9 +6,9 @@ import { Observable } from 'rxjs/Observable';
 })
 export class DataService {
 
-  datos: any;
-  user: string = 'admin';
-  idUser = 9;
+  name: any;
+  user = '';
+  idUser: number;
   login = false;
   url = 'http://192.168.0.5:8888';
   constructor(private http: HttpClient) {

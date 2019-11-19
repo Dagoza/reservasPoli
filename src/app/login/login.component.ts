@@ -44,8 +44,9 @@ export class LoginComponent implements OnInit {
           if (Response.status === 'success') {
             localStorage.setItem('token', Response.message);
             this.Data.login = true;
-            this.Data.user = 'student';
-            this.Data.datos = {name: 'Prueba'};
+            this.Data.idUser = Response.id;
+            this.Data.user = Response.user_type;
+            this.Data.name = Response.name_user;
             this.router.navigate(['/home']);
           } else {
             this.mensaje = 'Usuario o contraseña incorrecto.';
@@ -61,7 +62,7 @@ export class LoginComponent implements OnInit {
     const socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     this.socialAuthService.signIn(socialPlatformProvider)
       .then((userData) => {
-        this.Data.datos = userData;
+        this.Data.name = userData.name;
         this.Data.login = true;
         this.Data.user = 'student';
         // post backend

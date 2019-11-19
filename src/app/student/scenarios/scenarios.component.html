@@ -1,3 +1,4 @@
+<app-loading *ngIf="loading"></app-loading>
 <app-navbar></app-navbar>
 
 <app-carousel *ngIf="cards.length!=0" [cards]="cards" (selectionChange)='selection($event)'></app-carousel>
